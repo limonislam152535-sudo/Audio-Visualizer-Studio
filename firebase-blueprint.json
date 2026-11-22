@@ -1,0 +1,180 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated studio user profile metadata stored without media files.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth user UID matching the document ID.",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address.",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name shown in the studio account badge.",
+          "maxLength": 120
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["password", "google.com", "other"],
+          "description": "Authentication provider used to sign in."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was last updated."
+        }
+      },
+      "required": ["uid", "email", "displayName", "provider", "createdAt", "updatedAt"]
+    },
+    "ExportHistoryItem": {
+      "title": "ExportHistoryItem",
+      "description": "Lightweight metadata of a locally rendered and exported MP4 video session. Audio files and video blobs are never uploaded or persisted.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128
+        },
+        "audioFileName": {
+          "type": "string",
+          "description": "Original filename of the locally processed audio track.",
+          "maxLength": 200
+        },
+        "audioDurationSec": {
+          "type": "number",
+          "description": "Duration of the track in seconds."
+        },
+        "audioSampleRate": {
+          "type": "number",
+          "description": "Sample rate in Hz."
+        },
+        "templateId": {
+          "type": "string",
+          "description": "Visualizer template identifier used for rendering.",
+          "maxLength": 64
+        },
+        "templateName": {
+          "type": "string",
+          "description": "Human-readable visualizer template name.",
+          "maxLength": 80
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": ["9:16", "16:9", "1:1", "4:5", "4:3", "3:4", "21:9", "2:1"],
+          "description": "Canvas aspect ratio preset."
+        },
+        "resolution": {
+          "type": "string",
+          "enum": ["1080p", "2k", "4k"],
+          "description": "Export resolution tier."
+        },
+        "fps": {
+          "type": "number",
+          "description": "Export frame rate (24, 30, 50, or 60)."
+        },
+        "quality": {
+          "type": "string",
+          "enum": ["standard", "high", "ultra"],
+          "description": "Bitrate quality tier."
+        },
+        "outputWidth": {
+          "type": "number",
+          "description": "Rendered video width in pixels."
+        },
+        "outputHeight": {
+          "type": "number",
+          "description": "Rendered video height in pixels."
+        },
+        "outputSizeBytes": {
+          "type": "number",
+          "description": "Local MP4 output size in bytes."
+        },
+        "codecLabel": {
+          "type": "string",
+          "description": "Video/audio codec description.",
+          "maxLength": 80
+        },
+        "offsetX": {
+          "type": "number",
+          "description": "Horizontal visualizer offset percentage (-50 to 50)."
+        },
+        "offsetY": {
+          "type": "number",
+          "description": "Vertical visualizer offset percentage (-50 to 50)."
+        },
+        "primaryColor": {
+          "type": "string",
+          "description": "Primary hex color used for the visualizer.",
+          "maxLength": 20
+        },
+        "secondaryColor": {
+          "type": "string",
+          "description": "Secondary hex color used for the visualizer.",
+          "maxLength": 20
+        },
+        "accentColor": {
+          "type": "string",
+          "description": "Accent hex color used for the visualizer.",
+          "maxLength": 20
+        },
+        "backgroundType": {
+          "type": "string",
+          "enum": ["black", "solid", "gradient", "preset-image", "custom-image"],
+          "description": "Background mode used during export."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when export completed."
+        }
+      },
+      "required": [
+        "uid",
+        "audioFileName",
+        "audioDurationSec",
+        "audioSampleRate",
+        "templateId",
+        "templateName",
+        "aspectRatio",
+        "resolution",
+        "fps",
+        "quality",
+        "outputWidth",
+        "outputHeight",
+        "outputSizeBytes",
+        "codecLabel",
+        "offsetX",
+        "offsetY",
+        "primaryColor",
+        "secondaryColor",
+        "accentColor",
+        "backgroundType",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user account profile isolated to the authenticated owner."
+    },
+    "/users/{userId}/history/{historyId}": {
+      "schema": { "$ref": "#/entities/ExportHistoryItem" },
+      "description": "Per-user export history metadata records; audio/video payloads are strictly excluded."
+    }
+  }
+}

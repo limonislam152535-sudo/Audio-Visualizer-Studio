@@ -1,0 +1,6 @@
+{
+  "name": "Audio Visualizer Studio",
+  "description": "Local browser-based audio visualizer and MP4 video creator studio with 20 reactive templates, custom backgrounds, branding, and aspect ratios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

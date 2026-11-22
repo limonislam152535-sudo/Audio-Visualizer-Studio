@@ -1,0 +1,12 @@
+{
+  "projectId": "audio-visualizer-studio",
+  "appId": "1:342334535095:web:11b76c68227f07335c2432",
+  "apiKey": "AIzaSyALu7bSIw4S4jEUaRx14GGKztfTI9bHvVk",
+  "authDomain": "audio-visualizer-studio.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-audiovisualizers-1c7cfe9e-b676-470d-a26e-761c5e992503",
+  "storageBucket": "audio-visualizer-studio.firebasestorage.app",
+  "messagingSenderId": "342334535095",
+  "measurementId": "",
+  "oAuthClientId": "342334535095-hmef5tgm4qcqisoa29p2td86e66ktdla.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
+}
